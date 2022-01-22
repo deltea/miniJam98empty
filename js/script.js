@@ -26,4 +26,19 @@ function input(key, callback) {
   });
 }
 
+// All inputs
+// Movement
+input("ArrowLeft", () => {
+
+});
+input("ArrowRight", () => {
+
+});
+input("ArrowUp", () => {
+
+});
+input("ArrowDown", () => {
+
+});
+
 updateGame();
