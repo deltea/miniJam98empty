@@ -7,6 +7,12 @@ let game = [
 
 // Function to update the game
 function updateGame() {
-  let game = document.getElementById("game");
+  let gameDiv = document.getElementById("game");
+  game.forEach(row => {
+    row.forEach(character => {
+      gameDiv.innerText += character;
+    });
+    gameDiv.innerText += "\n";
+  });
 }
 updateGame();
