@@ -4,11 +4,17 @@ let game = [
   ["#", "#", "#"],
   ["#", "#", "#"]
 ];
+let playerPos = {
+  x: 0,
+  y: 0
+}
 
 // Function to update the game
 function updateGame() {
   let gameDiv = document.getElementById("game");
   gameDiv.replaceChildren();
+
+  game[playerPos.x][playerPos.y] = "@";
   game.forEach(row => {
     row.forEach(character => {
       gameDiv.innerText += character;
