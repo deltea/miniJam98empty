@@ -1,9 +1,14 @@
 // The whole game
-let game = [
-  ["#", "#", "#"],
-  ["#", "#", "#"],
-  ["#", "#", "#"]
-];
+let game = [];
+let proportions = {
+  width: 10,
+  height: 10
+};
+let characters = {
+  dirt: "#",
+  nothing: " ",
+  player: "@"
+};
 let playerPos = {
   x: 0,
   y: 0
@@ -14,13 +19,16 @@ function updateGame() {
   let gameDiv = document.getElementById("game");
   gameDiv.innerText = "";
 
-  for (var x = 0; x < game.length; x++) {
-    for (var i = 0; i < game[x].length; i++) {
-      if (game[x][i] === "@") {
-        game[x][i] = "#";
-      }
+  // Fill the board
+  game = [];
+  for (var i = 0; i < proportions.height; i++) {
+    let row = [];
+    for (var x = 0; x < proportions.width; x++) {
+      row.push(characters.dirt);
     }
+    game.push(row);
   }
+
   game[playerPos.y][playerPos.x] = "@";
 
   game.forEach(row => {
