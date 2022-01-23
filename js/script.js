@@ -7,7 +7,8 @@ let proportions = {
 let characters = {
   dirt: "#",
   nothing: " ",
-  player: "@"
+  player: "@",
+  monster: "$"
 };
 let playerPos = {
   x: 0,
@@ -16,8 +17,10 @@ let playerPos = {
 let enemies = [{
   health: 10,
   damage: 1,
-  x: 1,
-  y: 0
+  pos: {
+    x: 9,
+    y: 9
+  }
 }];
 
 // Function to update the game
@@ -36,7 +39,7 @@ function updateGame() {
   }
 
   enemies.forEach(enemy => {
-    new Enemy("%", enemy.health, enemy.damage, game, enemy.x, enemy.y);
+    new Enemy(characters.monster, enemy.health, enemy.damage, game, enemy.pos);
   });
   game[playerPos.y][playerPos.x] = "@";
 
@@ -57,30 +60,79 @@ function input(key, callback) {
   });
 }
 
+// Move a enemy
+function moveEnemy(enemy) {
+  if (playerPos.x > enemy.pos.x) {
+    enemy.pos.x++;
+  } else if (playerPos.x < enemy.pos.x) {
+    enemy.pos.x--;
+  }
+  if (playerPos.y > enemy.pos.y) {
+    enemy.pos.y++;
+  } else if (playerPos.y < enemy.pos.y) {
+    enemy.pos.y--;
+  }
+}
+
+// Function to check if the player is touching something
+function touching(x, y, game) {
+  return game[y][x];
+}
+
+// Move the player
+function move(direction) {
+  switch (direction) {
+    case "left":
+      playerPos.x--;
+      break;
+    case "right":
+      playerPos.x++;
+      break;
+    case "up":
+      playerPos.y--;
+      break;
+    case "down":
+      playerPos.y++;
+      break;
+  }
+}
+
 updateGame();
 // All inputs
 // Movement
 input("ArrowLeft", () => {
   if (playerPos.x > 0) {
-    playerPos.x--;
-    updateGame();
+    move("left");
+    enemies.forEach(enemy => {
+      moveEnemy(enemy);
+      updateGame();
+    });
   }
 });
 input("ArrowRight", () => {
   if (playerPos.x < game[0].length - 1) {
-    playerPos.x++;
-    updateGame();
+    move("right");
+    enemies.forEach(enemy => {
+      moveEnemy(enemy);
+      updateGame();
+    });
   }
 });
 input("ArrowUp", () => {
   if (playerPos.y > 0) {
-    playerPos.y--;
-    updateGame();
+    move("up");
+    enemies.forEach(enemy => {
+      moveEnemy(enemy);
+      updateGame();
+    });
   }
 });
 input("ArrowDown", () => {
   if (playerPos.y < game.length - 1) {
-    playerPos.y++;
-    updateGame();
+    move("down");
+    enemies.forEach(enemy => {
+      moveEnemy(enemy);
+      updateGame();
+    });
   }
 });
