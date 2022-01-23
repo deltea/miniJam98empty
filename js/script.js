@@ -13,6 +13,14 @@ let playerPos = {
   x: 0,
   y: 0
 };
+let weapons = {
+  dagger: {
+    damage: 1
+  },
+  sword: {
+    damage: 5
+  }
+};
 
 // Function to update the game
 function updateGame() {
@@ -29,7 +37,7 @@ function updateGame() {
     game.push(row);
   }
 
-  game[playerPos.y][playerPos.x] = "@";
+  game[playerPos.y][playerPos.x] = characters.player;
 
   game.forEach(row => {
     row.forEach(character => {
